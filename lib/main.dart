@@ -1,29 +1,43 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fp14_1/screens/HomePage.dart';
-import 'dart:io';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-          options: kIsWeb|| Platform.isAndroid?const FirebaseOptions(
-          apiKey: "AIzaSyAurjSiBrt8LfAcy4wLx4jFG-AeoSongdI",
-          appId: "1:559048637755:android:e6a6ad9acd8a057f764b1e",
-          messagingSenderId: "559048637755",
-          projectId: "flutterfirebase-c7d6b",
-          storageBucket: "flutterfirebase-c7d6b.appspot.com",
-        ): null ,);
-      
+  await dotenv.load(fileName: '.env');
+
+  String? apiKey = dotenv.env['API_KEY'];
+  String? appId = dotenv.env['APPID'];
+  String? messagingSenderId = dotenv.env['MESSAGE_SENDER_ID'];
+  String? projectId = dotenv.env['PROJECT_ID'];
+  String? storageBucket = dotenv.env['STORAGE_BUCKET'];
+
+  if (apiKey != null && appId != null && messagingSenderId != null &&
+      projectId != null && storageBucket != null) {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: apiKey,
+        appId: appId,
+        messagingSenderId: messagingSenderId,
+        projectId: projectId,
+        storageBucket: storageBucket,
+      ),
+    );
+  } else {
+    // ignore: avoid_print
+    print("One or more environment variables are missing.");
+    return; // Exit the application if environment variables are missing
+  }
+
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Flutter FireBase App ",
+      title: "Flutter Firebase App",
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: HomePage(),
