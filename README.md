@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## ScreenShots 
 # Add Contact
-<img src="https://github.com/preetdhamu/Contact-App/assets/108987388/a4b17bc5-05e0-4263-b375-ba40fd33b279" width="200" height="200" alt="Screenshot 2024-05-12 180123">
+![Screenshot 2024-05-12 180123](https://github.com/preetdhamu/Contact-App/assets/108987388/a4b17bc5-05e0-4263-b375-ba40fd33b279)
 # Home Page After Saving The Contact in ListView
 ![Screenshot 2024-05-12 180136](https://github.com/preetdhamu/Contact-App/assets/108987388/9945518e-fff6-4962-b7b3-46a1984fe94c)
 # View Contact
