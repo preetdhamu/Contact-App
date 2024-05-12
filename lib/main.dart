@@ -8,13 +8,16 @@ void main() async {
   await dotenv.load(fileName: '.env');
 
   String? apiKey = dotenv.env['API_KEY'];
-  String? appId = dotenv.env['APPID'];
+  String? appId = dotenv.env['APP_ID'];
   String? messagingSenderId = dotenv.env['MESSAGE_SENDER_ID'];
   String? projectId = dotenv.env['PROJECT_ID'];
   String? storageBucket = dotenv.env['STORAGE_BUCKET'];
 
-  if (apiKey != null && appId != null && messagingSenderId != null &&
-      projectId != null && storageBucket != null) {
+  if (apiKey != null &&
+      appId != null &&
+      messagingSenderId != null &&
+      projectId != null &&
+      storageBucket != null) {
     await Firebase.initializeApp(
       options: FirebaseOptions(
         apiKey: apiKey,
@@ -26,6 +29,7 @@ void main() async {
     );
   } else {
     // ignore: avoid_print
+   
     print("One or more environment variables are missing.");
     return; // Exit the application if environment variables are missing
   }

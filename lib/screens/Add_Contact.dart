@@ -114,6 +114,21 @@ class _AddContactState extends State<AddContact> {
           child: ListView(
             children: [
               Container(
+                margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                width: 150,
+                height: 100,
+                child: Center(
+                child: _photo == null
+                    ? Text("")
+                    : Image.file(_photo),
+                
+                // child: Image(
+                //   image: NetworkImage(_photoUrl),
+                //   fit: BoxFit.cover,
+                // ),
+                ),
+              ),
+              Container(
                 margin: EdgeInsets.only(top: 20.0),
                 child: GestureDetector(
                   onTap: () {
@@ -121,33 +136,19 @@ class _AddContactState extends State<AddContact> {
                   },
                   child: Center(
                     child: Container(
-                      width: 100.0,
-                      height: 100.0,
+                      width: 50.0,
+                      height: 50.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          // image: _photoUrl == 'empty'
-                          //     ? const AssetImage(
-                          //         'images/12.jpg') // Replace with your placeholder image asset path
-                          //     : _getImageProvider(),
+                          
                           image: const AssetImage('images/12.jpg'),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: _photo == null
-                    ? Text("No Image Found")
-                    : Image.file(_photo),
-                
-                // child: Image(
-                //   image: NetworkImage(_photoUrl),
-                //   fit: BoxFit.cover,
-                // ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20.0),
