@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(CartApp());
+}
+
+class CartApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: CartScreen(),
+    );
+  }
+}
+
+class CartScreen extends StatefulWidget {
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  // List to store TextEditingController for each item
+  List<TextEditingController> _controllers = [];
+  // List to store quantities of items
+  List<int> quantities = [1, 2, 3, 1]; // Example quantities for 4 items
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize TextEditingControllers for each item
+    _controllers = List.generate(quantities.length, (index) => TextEditingController(text: quantities[index].toString()));
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controllers when the widget is removed
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Cart Example"),
+      ),
+      body: ListView.builder(
+        itemCount: quantities.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text('Item ${index + 1}'),
+            subtitle: Row(
+              children: [
+                // Button to decrement quantity
+                IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: () {
+                    setState(() {
+                      if (quantities[index] > 1) {
+                        quantities[index]--;
+                        _controllers[index].text = quantities[index].toString();
+                      }
+                    });
+                  },
+                ),
+                // TextField for editing quantity
+                SizedBox(
+                  width: 50,
+                  child: TextField(
+                    controller: _controllers[index],
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      setState(() {
+                        quantities[index] = int.tryParse(value) ?? 1;
+                      });
+                    },
+                  ),
+                ),
+                // Button to increment quantity
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    setState(() {
+                      quantities[index]++;
+                      _controllers[index].text = quantities[index].toString();
+                    });
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
